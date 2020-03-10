@@ -31,15 +31,16 @@ app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-app.post("/comprar", async (req, res) => {
+//rota para processar a compra
+app.post("/comprar", (req, res) => {
   var pagamento = {
     intent: "sale",
     payer: {
       payment_method: "paypal"
     },
     redirect_urls: {
-      return_url: "http://return.url",
-      cancel_url: "http://cancel.url"
+      return_url: "http://localhost:3000/final",
+      cancel_url: "http://localhost:3000/"
     },
     transactions: [
       {
@@ -75,6 +76,35 @@ app.post("/comprar", async (req, res) => {
         }
       }
 
+      return res.json(payment);
+    }
+  });
+});
+
+//rota para processar o pagamento
+app.get("/final", async (req, res) => {
+  //recebendo dados para processar o pagamento
+  var payerId = req.query.payerId;
+  var paymentId = req.query.paymentId;
+
+  //montando dados para pagamento
+  var final = {
+    payer_id: payerId,
+    transactions: [
+      {
+        amount: {
+          currency: "BRL",
+          total: "5.00"
+        }
+      }
+    ]
+  };
+
+  //processando pagamento
+  paypal.payment.execute(paymentId, final, (err, payment) => {
+    if (err) {
+      return res.json(err);
+    } else {
       return res.json(payment);
     }
   });
