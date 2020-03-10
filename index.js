@@ -66,8 +66,17 @@ app.post("/comprar", async (req, res) => {
   paypal.payment.create(pagamento, (error, payment) => {
     if (error) {
       return res.json(error);
+    } else {
+      //for pra fazer redirecionamento ... Implentar usando forEACH
+      for (var i = 0; i < payment.links.length; i++) {
+        var p = payment.links[i];
+        if (p.rel === "approval_url") {
+          res.redirect(p.href);
+        }
+      }
+
+      return res.json(payment);
     }
-    return res.json(payment);
   });
 });
 
