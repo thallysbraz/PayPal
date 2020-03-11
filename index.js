@@ -40,7 +40,7 @@ app.post("/comprar", (req, res) => {
     },
     redirect_urls: {
       return_url: "http://localhost:3000/final",
-      cancel_url: "http://localhost:3000/"
+      cancel_url: "http://localhost:3000"
     },
     transactions: [
       {
@@ -72,11 +72,10 @@ app.post("/comprar", (req, res) => {
       for (var i = 0; i < payment.links.length; i++) {
         var p = payment.links[i];
         if (p.rel === "approval_url") {
+          console.log("p.re: ", p.href);
           res.redirect(p.href);
         }
       }
-
-      return res.json(payment);
     }
   });
 });
@@ -84,9 +83,10 @@ app.post("/comprar", (req, res) => {
 //rota para processar o pagamento
 app.get("/final", async (req, res) => {
   //recebendo dados para processar o pagamento
-  var payerId = req.query.payerId;
+  var payerId = req.query.PayerID;
   var paymentId = req.query.paymentId;
-
+  console.log("paymentId: ", paymentId);
+  console.log("Chegou no redirecionamento");
   //montando dados para pagamento
   var final = {
     payer_id: payerId,
@@ -99,7 +99,6 @@ app.get("/final", async (req, res) => {
       }
     ]
   };
-
   //processando pagamento
   paypal.payment.execute(paymentId, final, (err, payment) => {
     if (err) {
