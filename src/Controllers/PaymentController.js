@@ -3,8 +3,9 @@ const paypal = require("../../config/PayPal");
 class PaymentController {
   //Store para criar pedido e pagamento
   async store(req, res) {
-    var email = req.body.email;
-    var id = req.body.id;
+    var { email, produto, description, price, amount } = req.body;
+
+    var total = price * amount;
 
     var pagamento = {
       intent: "sale",
@@ -12,7 +13,7 @@ class PaymentController {
         payment_method: "paypal"
       },
       redirect_urls: {
-        return_url: `http://localhost:3000/final?email=${email}&id=${id}`,
+        return_url: `http://localhost:3000/final?produto=${produto}&price=${price}&amount=${amount}&total=${total}`,
         cancel_url: "http://localhost:3000"
       },
       transactions: [
@@ -20,24 +21,24 @@ class PaymentController {
           item_list: {
             items: [
               {
-                name: "Bola",
-                sku: "bola_adidas",
-                price: "5.00",
+                name: produto,
+                sku: produto,
+                price: price,
                 currency: "BRL",
-                quantity: 1
+                quantity: amount
               }
             ]
           },
           amount: {
             currency: "BRL",
-            total: "5.00"
+            total: total
           },
-          description: "Bola da adidas"
+          description: description
         }
       ]
     };
-
-    paypal.payment.create(pagamento, (error, payment) => {
+    return res.json(pagamento);
+    /*paypal.payment.create(pagamento, (error, payment) => {
       if (error) {
         console.log("Erro ao criar o pagamento");
         return res.json(error);
@@ -50,18 +51,17 @@ class PaymentController {
           }
         }
       }
-    });
+    });*/
   }
 
   //confirmStore para executar pagamento
   async confirmStore(req, res) {
     //recebendo dados para processar o pagamento
-    var payerId = req.query.PayerID;
-    var paymentId = req.query.paymentId;
-    var email = req.query.email;
-    var id = req.query.id;
+    var { produto, price, amount, total, payerId, paymentId } = req.query;
 
-    console.log(`http://localhost:3000/final?email=${email}&id=${id}`);
+    console.log(
+      `http://localhost:3000/final?produto=${produto}&price=${price}&amount=${amount}&total=${total}`
+    );
     //montando dados para pagamento
     var final = {
       payer_id: payerId,

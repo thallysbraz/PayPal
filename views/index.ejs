@@ -9,21 +9,48 @@
       <div class="card-header">Comprar</div>
       <div class="card-body">
         <form action="/comprar" method="POST">
+          <label>Produto</label>
+          <input
+            class="form-control"
+            name="produto"
+            type="text"
+            placeholder="Informe o nome do produto"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Descrição</label>
+          <input
+            class="form-control"
+            name="description"
+            type="text"
+            placeholder="Descrição"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Preço</label>
+          <input
+            class="form-control"
+            name="price"
+            type="number"
+            placeholder="Informe o preço"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Amount</label>
+          <input
+            class="form-control"
+            name="amount"
+            type="number"
+            placeholder="Informe a quantidade"
+            style="margin-bottom: 5px;"
+            required
+          />
           <label>Email:</label>
           <input
             class="form-control"
             name="email"
             type="email"
             placeholder="email@exemplo.com"
-            style="margin-bottom: 5px;"
-            required
-          />
-          <label>ID:</label>
-          <input
-            class="form-control"
-            name="id"
-            type="number"
-            placeholder="Informe seu ID"
             style="margin-bottom: 5px;"
             required
           />
