@@ -69,7 +69,7 @@ class PaymentController {
         {
           amount: {
             currency: "BRL",
-            total: "5.00"
+            total: total
           }
         }
       ]
