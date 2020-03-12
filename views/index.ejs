@@ -1,15 +1,39 @@
-<%- include ("partials/header.ejs") %>
-<%- include ("partials/homenavbar.ejs") %>
+<%- include ("partials/header.ejs") %> <%- include ("partials/homenavbar.ejs")
+%>
 <body>
+  <h1>Olá Mundo, bem-vindo ao PayPal</h1>
 
-    <h1>Olá Mundo porra</h1>
-
-    <div class="cointainer">
+  <div class="cointainer">
+    <hr />
+    <div class="card" style="margin-top: 5px; width: 500px">
+      <div class="card-header">Comprar</div>
+      <div class="card-body">
         <form action="/comprar" method="POST">
-            <button>Comprar</button>
+          <label>Email:</label>
+          <input
+            class="form-control"
+            name="email"
+            type="email"
+            placeholder="email@exemplo.com"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>ID:</label>
+          <input
+            class="form-control"
+            name="id"
+            type="number"
+            placeholder="Informe seu ID"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <button type="submit" class="btn btn-success btn-block">
+            Comprar <i class="fas fa-sign-in-alt"></i>
+          </button>
         </form>
+      </div>
     </div>
-
+  </div>
 </body>
 
 <%- include ("partials/footer.ejs") %>
