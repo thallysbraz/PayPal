@@ -1,9 +1,66 @@
-<%- include ("partials/header.ejs") %>
-<%- include ("partials/homenavbar.ejs") %>
+<%- include ("partials/header.ejs") %> <%- include ("partials/homenavbar.ejs")
+%>
 <body>
+  <h1>Olá Mundo, bem-vindo ao PayPal</h1>
 
-    <h1>Olá Mundo porra</h1>
-
+  <div class="cointainer">
+    <hr />
+    <div class="card" style="margin-top: 5px; width: 500px">
+      <div class="card-header">Comprar</div>
+      <div class="card-body">
+        <form action="/comprar" method="POST">
+          <label>Produto</label>
+          <input
+            class="form-control"
+            name="produto"
+            type="text"
+            placeholder="Informe o nome do produto"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Descrição</label>
+          <input
+            class="form-control"
+            name="description"
+            type="text"
+            placeholder="Descrição"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Preço</label>
+          <input
+            class="form-control"
+            name="price"
+            type="number"
+            placeholder="Informe o preço"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Amount</label>
+          <input
+            class="form-control"
+            name="amount"
+            type="number"
+            placeholder="Informe a quantidade"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <label>Email:</label>
+          <input
+            class="form-control"
+            name="email"
+            type="email"
+            placeholder="email@exemplo.com"
+            style="margin-bottom: 5px;"
+            required
+          />
+          <button type="submit" class="btn btn-success btn-block">
+            Comprar <i class="fas fa-sign-in-alt"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 
 <%- include ("partials/footer.ejs") %>

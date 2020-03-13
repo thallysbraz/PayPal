@@ -1,10 +1,12 @@
 const express = require("express");
-
 const bodyParser = require("body-parser");
 const session = require("express-session");
+
 require("dotenv/config");
 
 const app = express(); //Instanciando server
+
+const routes = require("./routes/routes");
 
 app.set("view engine", "ejs"); //View engine
 
@@ -24,14 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Router
-
-app.get("/", (req, res) => {
-  res.render("index.ejs");
-});
+app.use(routes);
 
 const PORT = process.env.PORT || 8080;
 
-// End Router
 app.listen(PORT, () => {
   console.log(`O servidor está rodando na porta ${PORT}`);
 });
